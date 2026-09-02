@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMELO THE SHOES - ศูนย์รวมรองเท้ากีฬาและอุปกรณ์สปอร์ต</title>
+    <style>
+        :root {
+            --red-main: #D32F2F;      /* สีแดงหลัก */
+            --yellow-accent: #FFD54F; /* สีเหลืองสดใส */
+            --white-bg: #FAFAFA;       /* สีขาวพื้นหลัง */
+            --dark-text: #212121;     /* สีข้อความเข้ม */
+            --green-success: #4CAF50; /* สีเขียวสำหรับความสำเร็จ */
+            --blue-info: #1976D2;    /* สีฟ้าสำหรับข้อมูล */
+            --gray-cancel: #757575;   /* สีเทาปุ่มยกเลิก */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--white-bg);
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* เมนูบนสุด (Top Main Navigation) */
+        .top-nav {
+            background-color: #111;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .top-nav .logo {
+            color: var(--yellow-accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .top-nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.2rem;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        .top-nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .top-nav-links a:hover {
+            color: var(--yellow-accent);
+        }
+
+        /* ส่วนหัวของเว็บไซต์ */
+        header {
+            background-color: var(--red-main);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+
+        /* แถบเมนูเนวิเกชัน (แท็บสลับหมวดหมู่) */
+        nav.category-nav {
+            background-color: #212121;
+            display: flex;
+            justify-content: center;
+            border-bottom: 4px solid var(--yellow-accent);
+            flex-wrap: wrap;
+            gap: 2px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--yellow-accent);
+            color: var(--dark-text);
+        }
+
+        .nav-btn.active {
+            background-color: var(--red-main);
+            color: white;
+        }
+
+        /* คอนเทนเนอร์หลัก */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            min-height: 60vh;
+        }
+
+        /* ซ่อน/แสดง หน้าเนื้อหา */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .page-title {
+            color: var(--red-main);
+            border-left: 5px solid var(--yellow-accent);
+            padding-left: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Hero Banner ในหน้าแรก */
+        .hero-banner {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1511886929837-354d827aae26?q=80&w=1200&auto=format&fit=crop') center/cover;
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-banner h2 {
+            font-size: 2.5rem;
+            margin: 0 0 1rem 0;
+            color: var(--yellow-accent);
+        }
+
+        .hero-slogan {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .btn-cta {
+            background-color: var(--red-main);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-cta:hover {
+            background-color: #b71c1c;
+        }
+
+        /* โครงสร้างหน้าแนะนำร้าน */
+        .about-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-text p {
+            line-height: 1.7;
+            color: #444;
+            font-size: 1rem;
+        }
+
+        .about-img-box img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* การจัดวางการ์ดสินค้า */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--yellow-accent);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            background-color: #f7f7f7;
+            border-radius: 8px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            color: var(--red-main);
+            font-weight: bold;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .btn-buy {
+            background-color: var(--yellow-accent);
+            color: var(--dark-text);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-buy:hover {
+            background-color: #ffca28;
+        }
+
+        /* ส่วนเล่นเพลงบนหน้าเว็บ */
+        .audio-player-container {
+            background-color: #ffffff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-left: 5px solid var(--red-main);
+        }
+
+        /* หน้าต่างป๊อปอัป (Modal Overlay) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-weight: bold;
+        }
+
+        .modal-img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            margin: 0 auto 1rem auto;
+            display: block;
+        }
+
+        .size-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 1.2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            border: 2px solid #ddd;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .size-btn:hover {
+            border-color: var(--red-main);
+        }
+
+        .size-btn.selected {
+            background-color: var(--red-main);
+            color: white;
+            border-color: var(--red-main);
+        }
+
+        .btn-confirm {
+            background-color: var(--red-main);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-confirm:hover {
+            background-color: #b71c1c;
+        }
+
+        /* ตกแต่งไอคอนและกล่องรายละเอียดป๊อปอัป */
+        .modal-icon {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 1rem auto;
+        }
+
+        .icon-success {
+            background-color: #E8F5E9;
+            color: var(--green-success);
+            border: 3px solid var(--green-success);
+        }
+
+        .icon-info {
+            background-color: #E3F2FD;
+            color: var(--blue-info);
+            border: 3px solid var(--blue-info);
+        }
+
+        .icon-warning {
+            background-color: #FFEBEE;
+            color: var(--red-main);
+            border: 3px solid var(--red-main);
+        }
+
+        .modal-info-box {
+            background-color: #f9f9f9;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .modal-info-box ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+
+        .modal-info-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* กลุ่มปุ่มใน Modal */
+        .modal-btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .btn-modal-close {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-modal-close:hover {
+            background-color: #555;
+        }
+
+        .btn-done {
+            background-color: var(--green-success);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-done:hover {
+            background-color: #388E3C;
+        }
+
+        /* ปุ่มยกเลิกสินค้า (สีส้ม/แดง) */
+        .btn-cancel-order {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-cancel-order:hover {
+            background-color: #d32f2f;
+        }
+
+        /* ส่วนท้ายเว็บไซต์ (Footer) */
+        footer {
+            background-color: #111;
+            color: #ccc;
+            padding: 2rem 1rem 1rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--yellow-accent);
+            margin-top: 0;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #333;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            font-size: 0.85rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- เมนูหลักด้านบนสุด -->
+    <div class="top-nav">
+        <div class="logo">CAMELO THE SHOES</div>
+        <ul class="top-nav-links">
+            <li><a onclick="switchTab('home', 'btn-home')">หน้าแรก</a></li>
+            <li><a onclick="switchTab('cleats', 'btn-cleats')">สตั๊ด</a></li>
+            <li><a onclick="switchTab('futsal', 'btn-futsal')">ฟุตซอล</a></li>
+            <li><a onclick="switchTab('running', 'btn-running')">รองเท้าวิ่ง</a></li>
+            <li><a onclick="switchTab('basketball', 'btn-basketball')">บาสเกตบอล</a></li>
+            <li><a onclick="switchTab('tennis', 'btn-tennis')">เทนนิส</a></li>
+            <li><a onclick="switchTab('hiking', 'btn-hiking')">เดินป่า</a></li>
+            <li><a onclick="openShippingModal()">การจัดส่ง</a></li>
+            <li><a onclick="openReturnsModal()">การคืนสินค้า</a></li>
+        </ul>
+    </div>
+
+    <!-- ส่วนหัวของเว็บไซต์ -->
+    <header>
+        <h1>🐪 CAMELO THE SHOES</h1>
+        <p>ศูนย์รวมรองเท้ากีฬาและอุปกรณ์สปอร์ตของแท้ 100%</p>
+    </header>
+
+    <!-- แถบเมนูสลับหมวดหมู่สินค้า -->
+    <nav class="category-nav">
+        <button id="btn-home" class="nav-btn active" onclick="switchTab('home', this.id)">🏠 หน้าแรก</button>
+        <button id="btn-cleats" class="nav-btn" onclick="switchTab('cleats', this.id)">⚽ สตั๊ด</button>
+        <button id="btn-futsal" class="nav-btn" onclick="switchTab('futsal', this.id)">🥅 ฟุตซอล</button>
+        <button id="btn-running" class="nav-btn" onclick="switchTab('running', this.id)">🏃 รองเท้าวิ่ง</button>
+        <button id="btn-basketball" class="nav-btn" onclick="switchTab('basketball', this.id)">🏀 บาสเกตบอล</button>
+        <button id="btn-tennis" class="nav-btn" onclick="switchTab('tennis', this.id)">🎾 เทนนิส</button>
+        <button id="btn-hiking" class="nav-btn" onclick="switchTab('hiking', this.id)">🥾 เดินป่า</button>
+    </nav>
+
+    <div class="container">
+        
+        <!-- หน้าที่ 1: แนะนำร้านและสโลแกน -->
+        <div id="home" class="tab-content active">
+            <div class="audio-player-container">
+                <span style="font-weight: bold; color: var(--dark-text);">🎵 เพลงประจำร้าน CAMELO:</span>
+                <audio controls autoplay loop>
+                    <source src="เธอไปอยู่ไหนมา.mp3" type="audio/mpeg">
+                    เบราว์เซอร์ของคุณไม่รองรับการเล่นไฟล์เสียง
+                </audio>
+            </div>
+
+            <div class="hero-banner">
+                <h2>CAMELO THE SHOES</h2>
+                <div class="hero-slogan">"ก้าวอย่างมั่นใจ พร้อมลุยทุกสนามแข่งขัน"</div>
+                <button class="btn-cta" onclick="switchTab('cleats', 'btn-cleats')">เลือกช้อปรองเท้าสตั๊ดเลย ⚽</button>
+            </div>
+
+            <div class="about-section">
+                <div class="about-text">
+                    <h2 class="page-title">ยินดีต้อนรับสู่ CAMELO THE SHOES</h2>
+                    <p>
+                        <strong>CAMELO THE SHOES</strong> คือศูนย์รวมรองเท้าฟุตบอล ฟุตซอล รองเท้าวิ่ง บาสเกตบอล เทนนิส และเดินป่า เราคัดสรรเฉพาะสินค้าลิขสิทธิ์แท้ 100% เพื่อให้นักกีฬาทุกคนได้ใช้สินค้าคุณภาพดีที่สุด
+                    </p>
+                </div>
+                <div class="about-img-box">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop" alt="ร้าน Camelo The Shoes">
+                </div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 2: รองเท้าสตั๊ด -->
+        <div id="cleats" class="tab-content">
+            <h2 class="page-title">หมวดหมู่: รองเท้าสตั๊ด (Football Boots)</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="แฟนทอมสีฟ้า.jpg" alt="Nike Phantom GX Blue" class="product-img">
+                    <div class="product-name">Nike Phantom GX Blue</div>
+                    <div class="product-price">฿8,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Phantom GX Blue', '฿8,500', 'แฟนทอมสีฟ้า.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="พีเดเตอร์.jpg" alt="Adidas Predator League" class="product-img">
+                    <div class="product-name">Adidas Predator League</div>
+                    <div class="product-price">฿3,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Predator League', '฿3,200', 'พีเดเตอร์.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="F50สีขาว.jpg" alt="Adidas F50 Elite FG" class="product-img">
+                    <div class="product-name">Adidas F50 Elite FG</div>
+                    <div class="product-price">฿7,800</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 Elite FG', '฿7,800', 'F50สีขาว.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="F50.jpg" alt="Adidas F50 Laceless Pink" class="product-img">
+                    <div class="product-name">Adidas F50 Laceless Pink</div>
+                    <div class="product-price">฿8,000</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 Laceless Pink', '฿8,000', 'F50.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ไนท์กี้สีแดง.png" alt="Nike Mercurial Vapor Red" class="product-img">
+                    <div class="product-name">Nike Mercurial Vapor Red</div>
+                    <div class="product-price">฿2,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Mercurial Vapor Red', '฿2,900', 'ไนท์กี้สีแดง.png')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="แฟนทอมสีเทา.jpg" alt="Nike Phantom Luna SE" class="product-img">
+                    <div class="product-name">Nike Phantom Luna SE</div>
+                    <div class="product-price">฿9,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Phantom Luna SE', '฿9,200', 'แฟนทอมสีเทา.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="Aดำ.jpg" alt="Adidas X Crazyfast Black" class="product-img">
+                    <div class="product-name">Adidas X Crazyfast Black</div>
+                    <div class="product-price">฿7,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas X Crazyfast Black', '฿7,500', 'Aดำ.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="พรีขาว.jpg" alt="Adidas Predator Elite White Pink" class="product-img">
+                    <div class="product-name">Adidas Predator Elite White Pink</div>
+                    <div class="product-price">฿8,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Predator Elite White Pink', '฿8,500', 'พรีขาว.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="Fม่วงอ่อน.jpg" alt="Adidas F50 Elite Laceless Purple" class="product-img">
+                    <div class="product-name">Adidas F50 Elite Laceless Purple</div>
+                    <div class="product-price">฿8,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 Elite Laceless Purple', '฿8,500', 'Fม่วงอ่อน.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="Fส้ม.jpg" alt="Adidas F50 League Orange" class="product-img">
+                    <div class="product-name">Adidas F50 League Orange</div>
+                    <div class="product-price">฿3,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 League Orange', '฿3,200', 'Fส้ม.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="Fม่วง.jpg" alt="Adidas F50 Elite FG Purple/Lime" class="product-img">
+                    <div class="product-name">Adidas F50 Elite FG Purple/Lime</div>
+                    <div class="product-price">฿7,800</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 Elite FG Purple/Lime', '฿7,800', 'Fม่วง.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="Fดำแดง.jpg" alt="Adidas F50 Club Black Red" class="product-img">
+                    <div class="product-name">Adidas F50 Club Black Red</div>
+                    <div class="product-price">฿2,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 Club Black Red', '฿2,200', 'Fดำแดง.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="Fดำ.jpg" alt="Adidas F50 League Black Blue" class="product-img">
+                    <div class="product-name">Adidas F50 League Black Blue</div>
+                    <div class="product-price">฿3,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 League Black Blue', '฿3,200', 'Fดำ.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="Fกุหลาบ.jpg" alt="Adidas F50 Laceless Rose Special" class="product-img">
+                    <div class="product-name">Adidas F50 Laceless Rose Special</div>
+                    <div class="product-price">฿9,000</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 Laceless Rose Special', '฿9,000', 'Fกุหลาบ.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="แฟนเทาเค้ม.jpg" alt="Nike Phantom GX II Elite DF Grey" class="product-img">
+                    <div class="product-name">Nike Phantom GX II Elite DF Grey</div>
+                    <div class="product-price">฿9,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Phantom GX II Elite DF Grey', '฿9,500', 'แฟนเทาเค้ม.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="แฟนดำฟ้าอ่อน.jpg" alt="Nike Phantom GX II Elite DF Black/Blue" class="product-img">
+                    <div class="product-name">Nike Phantom GX II Elite DF Black/Blue</div>
+                    <div class="product-price">฿9,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Phantom GX II Elite DF Black/Blue', '฿9,500', 'แฟนดำฟ้าอ่อน.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="แฟนชมพู.jpg" alt="Nike Phantom Luna II Academy Pink" class="product-img">
+                    <div class="product-name">Nike Phantom Luna II Academy Pink</div>
+                    <div class="product-price">฿3,600</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Phantom Luna II Academy Pink', '฿3,600', 'แฟนชมพู.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="แฟนดำปิ๊ด.jpg" alt="Nike Phantom GX II Elite Triple Black" class="product-img">
+                    <div class="product-name">Nike Phantom GX II Elite Triple Black</div>
+                    <div class="product-price">฿8,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Phantom GX II Elite Triple Black', '฿8,900', 'แฟนดำปิ๊ด.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="แฟนเขียว.jpg" alt="Nike Phantom GX II Elite Mint Green" class="product-img">
+                    <div class="product-name">Nike Phantom GX II Elite Mint Green</div>
+                    <div class="product-price">฿9,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Phantom GX II Elite Mint Green', '฿9,200', 'แฟนเขียว.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="แฟนฟ้าขาว.jpg" alt="Nike Phantom GX II Academy Cyan/White" class="product-img">
+                    <div class="product-name">Nike Phantom GX II Academy Cyan/White</div>
+                    <div class="product-price">฿3,600</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Phantom GX II Academy Cyan/White', '฿3,600', 'แฟนฟ้าขาว.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="แฟนน้ำเงินขาว.jpg" alt="Nike Phantom GX II Elite White/Blue" class="product-img">
+                    <div class="product-name">Nike Phantom GX II Elite White/Blue</div>
+                    <div class="product-price">฿8,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Phantom GX II Elite White/Blue', '฿8,900', 'แฟนน้ำเงินขาว.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 3: รองเท้าฟุตซอล -->
+        <div id="futsal" class="tab-content">
+            <h2 class="page-title">หมวดหมู่: รองเท้าฟุตซอล (Futsal / Indoor Shoes)</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="ซอลขาวเขียวแดงดำ.jpg" alt="Adidas F50 Club IN White/Red" class="product-img">
+                    <div class="product-name">Adidas F50 Club IN White/Red</div>
+                    <div class="product-price">฿2,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 Club IN White/Red', '฿2,200', 'ซอลขาวเขียวแดงดำ.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลขาวน้ำเงินแดง.jpg" alt="Adidas F50 League IN White/Blue" class="product-img">
+                    <div class="product-name">Adidas F50 League IN White/Blue</div>
+                    <div class="product-price">฿3,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 League IN White/Blue', '฿3,200', 'ซอลขาวน้ำเงินแดง.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลขาวลายเขียว.jpg" alt="Pan Vigor X Thunder Lime/Blue" class="product-img">
+                    <div class="product-name">Pan Vigor X Thunder Lime/Blue</div>
+                    <div class="product-price">฿1,890</div>
+                    <button class="btn-buy" onclick="openOrderModal('Pan Vigor X Thunder Lime/Blue', '฿1,890', 'ซอลขาวลายเขียว.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลพูม่าแดงขาว.jpg" alt="Pan Vigor X Thunder White/Red" class="product-img">
+                    <div class="product-name">Pan Vigor X Thunder White/Red</div>
+                    <div class="product-price">฿1,890</div>
+                    <button class="btn-buy" onclick="openOrderModal('Pan Vigor X Thunder White/Red', '฿1,890', 'ซอลพูม่าแดงขาว.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลสีฟ้าเขียวอ่อน.jpg" alt="Adidas F50 League IN Blue/Lime" class="product-img">
+                    <div class="product-name">Adidas F50 League IN Blue/Lime</div>
+                    <div class="product-price">฿3,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 League IN Blue/Lime', '฿3,200', 'ซอลสีฟ้าเขียวอ่อน.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลสีม่วง.jpg" alt="Adidas F50 Elite IN Purple/Lime" class="product-img">
+                    <div class="product-name">Adidas F50 Elite IN Purple/Lime</div>
+                    <div class="product-price">฿7,800</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas F50 Elite IN Purple/Lime', '฿7,800', 'ซอลสีม่วง.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลสีม่วงลายดำ.jpg" alt="Pan Vigor X Thunder Purple/Black" class="product-img">
+                    <div class="product-name">Pan Vigor X Thunder Purple/Black</div>
+                    <div class="product-price">฿1,890</div>
+                    <button class="btn-buy" onclick="openOrderModal('Pan Vigor X Thunder Purple/Black', '฿1,890', 'ซอลสีม่วงลายดำ.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลสีส้ม.jpg" alt="Pan Vigor X Thunder Orange" class="product-img">
+                    <div class="product-name">Pan Vigor X Thunder Orange</div>
+                    <div class="product-price">฿1,890</div>
+                    <button class="btn-buy" onclick="openOrderModal('Pan Vigor X Thunder Orange', '฿1,890', 'ซอลสีส้ม.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลดำลายขาว.jpg" alt="Pan Vigor X Black Silver" class="product-img">
+                    <div class="product-name">Pan Vigor X Black Silver</div>
+                    <div class="product-price">฿1,890</div>
+                    <button class="btn-buy" onclick="openOrderModal('Pan Vigor X Black Silver', '฿1,890', 'ซอลดำลายขาว.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลดำลายน้ำเงิน.webp" alt="Voltrar Black Blue" class="product-img">
+                    <div class="product-name">Voltrar Black Blue</div>
+                    <div class="product-price">฿1,690</div>
+                    <button class="btn-buy" onclick="openOrderModal('Voltrar Black Blue', '฿1,690', 'ซอลดำลายน้ำเงิน.webp')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลสีฟ้าอ่อน.jpg" alt="Umbro Sala Royal Blue" class="product-img">
+                    <div class="product-name">Umbro Sala Royal Blue</div>
+                    <div class="product-price">฿1,590</div>
+                    <button class="btn-buy" onclick="openOrderModal('Umbro Sala Royal Blue', '฿1,590', 'ซอลสีฟ้าอ่อน.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลส้ม.jpg" alt="Umbro Sala Orange Black" class="product-img">
+                    <div class="product-name">Umbro Sala Orange Black</div>
+                    <div class="product-price">฿1,590</div>
+                    <button class="btn-buy" onclick="openOrderModal('Umbro Sala Orange Black', '฿1,590', 'ซอลส้ม.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลฟ้าชมพู.jpg" alt="Umbro Sala Cyan Pink" class="product-img">
+                    <div class="product-name">Umbro Sala Cyan Pink</div>
+                    <div class="product-price">฿1,590</div>
+                    <button class="btn-buy" onclick="openOrderModal('Umbro Sala Cyan Pink', '฿1,590', 'ซอลฟ้าชมพู.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลน่ารัก.jpg" alt="Pan Vigor Cute Pink Gold" class="product-img">
+                    <div class="product-name">Pan Vigor Cute Pink Gold</div>
+                    <div class="product-price">฿1,990</div>
+                    <button class="btn-buy" onclick="openOrderModal('Pan Vigor Cute Pink Gold', '฿1,990', 'ซอลน่ารัก.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ซอลแดงดุดัน.jpg" alt="Mizuno Morelia Neo IN Red Metal" class="product-img">
+                    <div class="product-name">Mizuno Morelia Neo IN Red Metal</div>
+                    <div class="product-price">฿3,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Mizuno Morelia Neo IN Red Metal', '฿3,500', 'ซอลแดงดุดัน.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 4: รองเท้าวิ่ง -->
+        <div id="running" class="tab-content">
+            <h2 class="page-title">หมวดหมู่: รองเท้าวิ่ง (Running Shoes)</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="วิ่ง1.jpg" alt="Adidas Supernova Rise Grey" class="product-img">
+                    <div class="product-name">Adidas Supernova Rise Grey</div>
+                    <div class="product-price">฿4,700</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Supernova Rise Grey', '฿4,700', 'วิ่ง1.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง2.jpg" alt="Adidas Ultraboost Light Cyan" class="product-img">
+                    <div class="product-name">Adidas Ultraboost Light Cyan</div>
+                    <div class="product-price">฿6,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Ultraboost Light Cyan', '฿6,500', 'วิ่ง2.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิง่3.jpg" alt="Adidas Adizero Adios Pro Black" class="product-img">
+                    <div class="product-name">Adidas Adizero Adios Pro Black</div>
+                    <div class="product-price">฿8,000</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Adizero Adios Pro Black', '฿8,000', 'วิง่3.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง4.jpg" alt="Adidas Ultraboost Triple Black" class="product-img">
+                    <div class="product-name">Adidas Ultraboost Triple Black</div>
+                    <div class="product-price">฿6,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Ultraboost Triple Black', '฿6,500', 'วิ่ง4.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง5.jpg" alt="Adidas Supernova Solution Black/White" class="product-img">
+                    <div class="product-name">Adidas Supernova Solution Black/White</div>
+                    <div class="product-price">฿4,700</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Supernova Solution Black/White', '฿4,700', 'วิ่ง5.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง6.jpg" alt="Adidas Adizero Boston White/Green" class="product-img">
+                    <div class="product-name">Adidas Adizero Boston White/Green</div>
+                    <div class="product-price">฿5,300</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Adizero Boston White/Green', '฿5,300', 'วิ่ง6.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง7.jpg" alt="Adidas Solarboost Mint Green" class="product-img">
+                    <div class="product-name">Adidas Solarboost Mint Green</div>
+                    <div class="product-price">฿5,000</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Solarboost Mint Green', '฿5,000', 'วิ่ง7.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง8.jpg" alt="Adidas Response Runner Lime" class="product-img">
+                    <div class="product-name">Adidas Response Runner Lime</div>
+                    <div class="product-price">฿2,400</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Response Runner Lime', '฿2,400', 'วิ่ง8.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง9.jpg" alt="Adidas Duramo Speed Cyan" class="product-img">
+                    <div class="product-name">Adidas Duramo Speed Cyan</div>
+                    <div class="product-price">฿2,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Duramo Speed Cyan', '฿2,900', 'วิ่ง9.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง10.jpg" alt="Adidas Switch FWD White Red" class="product-img">
+                    <div class="product-name">Adidas Switch FWD White Red</div>
+                    <div class="product-price">฿5,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Switch FWD White Red', '฿5,500', 'วิ่ง10.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง11.jpg" alt="Adidas Response Triple Black" class="product-img">
+                    <div class="product-name">Adidas Response Triple Black</div>
+                    <div class="product-price">฿2,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Response Triple Black', '฿2,500', 'วิ่ง11.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง12.jpg" alt="Adidas Adizero Boston Neon Yellow" class="product-img">
+                    <div class="product-name">Adidas Adizero Boston Neon Yellow</div>
+                    <div class="product-price">฿5,300</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Adizero Boston Neon Yellow', '฿5,300', 'วิ่ง12.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง13.jpg" alt="Adidas Duramo SL 2 Black Pink" class="product-img">
+                    <div class="product-name">Adidas Duramo SL 2 Black Pink</div>
+                    <div class="product-price">฿2,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Duramo SL 2 Black Pink', '฿2,200', 'วิ่ง13.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง14.jpg" alt="Adidas Adizero RC Triple Black" class="product-img">
+                    <div class="product-name">Adidas Adizero RC Triple Black</div>
+                    <div class="product-price">฿4,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Adizero RC Triple Black', '฿4,200', 'วิ่ง14.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="วิ่ง15.jpg" alt="Adidas Adizero Pro Light Purple" class="product-img">
+                    <div class="product-name">Adidas Adizero Pro Light Purple</div>
+                    <div class="product-price">฿7,800</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Adizero Pro Light Purple', '฿7,800', 'วิ่ง15.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 5: รองเท้าบาสเกตบอล -->
+        <div id="basketball" class="tab-content">
+            <h2 class="page-title">หมวดหมู่: รองเท้าบาสเกตบอล (Basketball Shoes)</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="บาส1.jpg" alt="Puma MB.03 Cyan Pink" class="product-img">
+                    <div class="product-name">Puma MB.03 Cyan Pink</div>
+                    <div class="product-price">฿5,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Puma MB.03 Cyan Pink', '฿5,900', 'บาส1.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส2.jpg" alt="Nike KD 17 Sunrise Pink" class="product-img">
+                    <div class="product-name">Nike KD 17 Sunrise Pink</div>
+                    <div class="product-price">฿5,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike KD 17 Sunrise Pink', '฿5,500', 'บาส2.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส3.jpg" alt="Anta Shock Wave 5 Galaxy" class="product-img">
+                    <div class="product-name">Anta Shock Wave 5 Galaxy</div>
+                    <div class="product-price">฿4,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Anta Shock Wave 5 Galaxy', '฿4,200', 'บาส3.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส4.jpg" alt="Asics Gelhoop V16 White Purple" class="product-img">
+                    <div class="product-name">Asics Gelhoop V16 White Purple</div>
+                    <div class="product-price">฿4,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('Asics Gelhoop V16 White Purple', '฿4,500', 'บาส4.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส5.jpg" alt="Under Armour Curry Splash Orange Blue" class="product-img">
+                    <div class="product-name">Under Armour Curry Splash Orange Blue</div>
+                    <div class="product-price">฿4,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Under Armour Curry Splash Orange Blue', '฿4,900', 'บาส5.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส6.jpg" alt="Puma Scoot Zero Pink Cyan" class="product-img">
+                    <div class="product-name">Puma Scoot Zero Pink Cyan</div>
+                    <div class="product-price">฿3,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Puma Scoot Zero Pink Cyan', '฿3,900', 'บาส6.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส7.jpg" alt="Tarmak FAST 500 White Mint" class="product-img">
+                    <div class="product-name">Tarmak FAST 500 White Mint</div>
+                    <div class="product-price">฿2,400</div>
+                    <button class="btn-buy" onclick="openOrderModal('Tarmak FAST 500 White Mint', '฿2,400', 'บาส7.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส8.jpg" alt="Puma MB.03 Red Orange Flame" class="product-img">
+                    <div class="product-name">Puma MB.03 Red Orange Flame</div>
+                    <div class="product-price">฿5,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Puma MB.03 Red Orange Flame', '฿5,900', 'บาส8.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส9.jpg" alt="Nike Lebron XXI Algae Green" class="product-img">
+                    <div class="product-name">Nike Lebron XXI Algae Green</div>
+                    <div class="product-price">฿7,000</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Lebron XXI Algae Green', '฿7,000', 'บาส9.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส10.jpg" alt="Jordan Luka 2 Lake Bled" class="product-img">
+                    <div class="product-name">Jordan Luka 2 Lake Bled</div>
+                    <div class="product-price">฿4,700</div>
+                    <button class="btn-buy" onclick="openOrderModal('Jordan Luka 2 Lake Bled', '฿4,700', 'บาส10.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส11.jpg" alt="Anta KT 9 Black Purple" class="product-img">
+                    <div class="product-name">Anta KT 9 Black Purple</div>
+                    <div class="product-price">฿4,600</div>
+                    <button class="btn-buy" onclick="openOrderModal('Anta KT 9 Black Purple', '฿4,600', 'บาส11.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส12.jpg" alt="Nike Kyrie Flytrap 5 Orange Blue" class="product-img">
+                    <div class="product-name">Nike Kyrie Flytrap 5 Orange Blue</div>
+                    <div class="product-price">฿3,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Kyrie Flytrap 5 Orange Blue', '฿3,200', 'บาส12.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส13.jpg" alt="Puma MB.03 Toxic Green Orange" class="product-img">
+                    <div class="product-name">Puma MB.03 Toxic Green Orange</div>
+                    <div class="product-price">฿5,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Puma MB.03 Toxic Green Orange', '฿5,900', 'บาส13.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส14.jpg" alt="Anta Shock Wave 5 Light Blue Pink" class="product-img">
+                    <div class="product-name">Anta Shock Wave 5 Light Blue Pink</div>
+                    <div class="product-price">฿4,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Anta Shock Wave 5 Light Blue Pink', '฿4,200', 'บาส14.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="บาส15.jpg" alt="adidas Harden Vol. 8 Watermelon" class="product-img">
+                    <div class="product-name">adidas Harden Vol. 8 Watermelon</div>
+                    <div class="product-price">฿5,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('adidas Harden Vol. 8 Watermelon', '฿5,500', 'บาส15.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 6: รองเท้าเทนนิส -->
+        <div id="tennis" class="tab-content">
+            <h2 class="page-title">หมวดหมู่: รองเท้าเทนนิส (Tennis Shoes)</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="เทน1.jpg" alt="Babolat Propulse Fury Navy White" class="product-img">
+                    <div class="product-name">Babolat Propulse Fury Navy White</div>
+                    <div class="product-price">฿4,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Babolat Propulse Fury Navy White', '฿4,900', 'เทน1.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน2.jpg" alt="Decathlon Artengo Strong Black" class="product-img">
+                    <div class="product-name">Decathlon Artengo Strong Black</div>
+                    <div class="product-price">฿2,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Decathlon Artengo Strong Black', '฿2,200', 'เทน2.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน3.jpg" alt="Mizuno Wave Intense Tour 5 Blue" class="product-img">
+                    <div class="product-name">Mizuno Wave Intense Tour 5 Blue</div>
+                    <div class="product-price">฿4,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Mizuno Wave Intense Tour 5 Blue', '฿4,200', 'เทน3.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน4.jpg" alt="Decathlon Artengo Court White Black" class="product-img">
+                    <div class="product-name">Decathlon Artengo Court White Black</div>
+                    <div class="product-price">฿1,890</div>
+                    <button class="btn-buy" onclick="openOrderModal('Decathlon Artengo Court White Black', '฿1,890', 'เทน4.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน5.jpg" alt="On The Roger Pro White" class="product-img">
+                    <div class="product-name">On The Roger Pro White</div>
+                    <div class="product-price">฿7,500</div>
+                    <button class="btn-buy" onclick="openOrderModal('On The Roger Pro White', '฿7,500', 'เทน5.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน6.jpg" alt="Nike Court Lite 4 Cream Navy" class="product-img">
+                    <div class="product-name">Nike Court Lite 4 Cream Navy</div>
+                    <div class="product-price">฿2,700</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Court Lite 4 Cream Navy', '฿2,700', 'เทน6.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน7.jpg" alt="Nike Court Lite 4 White Teal" class="product-img">
+                    <div class="product-name">Nike Court Lite 4 White Teal</div>
+                    <div class="product-price">฿2,700</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Court Lite 4 White Teal', '฿2,700', 'เทน7.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน8.jpg" alt="Nike Court Lite 4 Pure White" class="product-img">
+                    <div class="product-name">Nike Court Lite 4 Pure White</div>
+                    <div class="product-price">฿2,700</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Court Lite 4 Pure White', '฿2,700', 'เทน8.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน9.jpg" alt="Nike Court Lite 4 Grey Coral" class="product-img">
+                    <div class="product-name">Nike Court Lite 4 Grey Coral</div>
+                    <div class="product-price">฿2,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Court Lite 4 Grey Coral', '฿2,900', 'เทน9.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน10.jpg" alt="Nike Court Lite 4 White Purple" class="product-img">
+                    <div class="product-name">Nike Court Lite 4 White Purple</div>
+                    <div class="product-price">฿2,700</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Court Lite 4 White Purple', '฿2,700', 'เทน10.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน11.jpg" alt="Nike Court Vapor Lite White Royal Blue" class="product-img">
+                    <div class="product-name">Nike Court Vapor Lite White Royal Blue</div>
+                    <div class="product-price">฿2,800</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Court Vapor Lite White Royal Blue', '฿2,800', 'เทน11.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน12.jpg" alt="Nike Court Vapor Lite Black White" class="product-img">
+                    <div class="product-name">Nike Court Vapor Lite Black White</div>
+                    <div class="product-price">฿2,800</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nike Court Vapor Lite Black White', '฿2,800', 'เทน12.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน13.jpg" alt="Adidas Gamecourt 2 Black Silver Coral" class="product-img">
+                    <div class="product-name">Adidas Gamecourt 2 Black Silver Coral</div>
+                    <div class="product-price">฿2,400</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Gamecourt 2 Black Silver Coral', '฿2,400', 'เทน13.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน14.jpg" alt="Nivia Speed Court White Black" class="product-img">
+                    <div class="product-name">Nivia Speed Court White Black</div>
+                    <div class="product-price">฿1,990</div>
+                    <button class="btn-buy" onclick="openOrderModal('Nivia Speed Court White Black', '฿1,990', 'เทน14.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="เทน15.jpg" alt="Medaron Court Pro White Navy Blue" class="product-img">
+                    <div class="product-name">Medaron Court Pro White Navy Blue</div>
+                    <div class="product-price">฿2,100</div>
+                    <button class="btn-buy" onclick="openOrderModal('Medaron Court Pro White Navy Blue', '฿2,100', 'เทน15.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 7: รองเท้าเดินป่า -->
+        <div id="hiking" class="tab-content">
+            <h2 class="page-title">หมวดหมู่: รองเท้าเดินป่า (Hiking Shoes)</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="ป่า1.jpg" alt="Timberland World Hiker Mid Beige" class="product-img">
+                    <div class="product-name">Timberland World Hiker Mid Beige</div>
+                    <div class="product-price">฿5,900</div>
+                    <button class="btn-buy" onclick="openOrderModal('Timberland World Hiker Mid Beige', '฿5,900', 'ป่า1.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ป่า2.jpg" alt="Adidas Terrex AX4 Gore-Tex Beige/Orange" class="product-img">
+                    <div class="product-name">Adidas Terrex AX4 Gore-Tex Beige/Orange</div>
+                    <div class="product-price">฿4,800</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Terrex AX4 Gore-Tex Beige/Orange', '฿4,800', 'ป่า2.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ป่า3.jpg" alt="Columbia Crestwood Mid Waterproof Grey" class="product-img">
+                    <div class="product-name">Columbia Crestwood Mid Waterproof Grey</div>
+                    <div class="product-price">฿4,200</div>
+                    <button class="btn-buy" onclick="openOrderModal('Columbia Crestwood Mid Waterproof Grey', '฿4,200', 'ป่า3.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ป่า4.jpg" alt="Adidas Terrex Soulstride Rain.Rdy White" class="product-img">
+                    <div class="product-name">Adidas Terrex Soulstride Rain.Rdy White</div>
+                    <div class="product-price">฿3,800</div>
+                    <button class="btn-buy" onclick="openOrderModal('Adidas Terrex Soulstride Rain.Rdy White', '฿3,800', 'ป่า4.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ป่า5.jpg" alt="Keen Uneek Sandal Dark Olive/Black" class="product-img">
+                    <div class="product-name">Keen Uneek Sandal Dark Olive/Black</div>
+                    <div class="product-price">฿4,550</div>
+                    <button class="btn-buy" onclick="openOrderModal('Keen Uneek Sandal Dark Olive/Black', '฿4,550', 'ป่า5.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+                <div class="product-card">
+                    <img src="ป่า6.jpg" alt="Keen Targhee III Mid Waterproof Brown" class="product-img">
+                    <div class="product-name">Keen Targhee III Mid Waterproof Brown</div>
+                    <div class="product-price">฿6,250</div>
+                    <button class="btn-buy" onclick="openOrderModal('Keen Targhee III Mid Waterproof Brown', '฿6,250', 'ป่า6.jpg')">สั่งซื้อสินค้า</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 1. ป๊อปอัปเลือกขนาดไซส์รองเท้า (Order Modal) -->
+    <div id="orderModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('orderModal')">&times;</button>
+            <h3 style="margin-top: 0; color: var(--red-main);">เลือกขนาดและยืนยันรายการ</h3>
+            <img id="modalProductImg" class="modal-img" src="" alt="สินค้า">
+            <div id="modalProductName" style="font-weight: bold; font-size: 1.1rem;"></div>
+            <div id="modalProductPrice" style="color: var(--red-main); font-size: 1.2rem; margin-top: 5px; font-weight: bold;"></div>
+            
+            <div style="margin-top: 15px; font-weight: bold;">เลือกขนาดไซส์ (EUR):</div>
+            <div class="size-selector">
+                <button class="size-btn" onclick="selectSize(this)">39</button>
+                <button class="size-btn" onclick="selectSize(this)">40</button>
+                <button class="size-btn" onclick="selectSize(this)">41</button>
+                <button class="size-btn" onclick="selectSize(this)">42</button>
+                <button class="size-btn" onclick="selectSize(this)">43</button>
+                <button class="size-btn" onclick="selectSize(this)">44</button>
+            </div>
+            
+            <button class="btn-confirm" onclick="confirmOrder()">ยืนยันการสั่งซื้อ</button>
+        </div>
+    </div>
+
+    <!-- 2. ป๊อปอัปแจ้งการสั่งซื้อสำเร็จ (Success Modal) + ปุ่มยกเลิกสินค้า -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('successModal')">&times;</button>
+            <div class="modal-icon icon-success">✓</div>
+            <h2 style="margin: 0; color: var(--green-success);">การสั่งซื้อสำเร็จ!</h2>
+            <p style="color: #666; margin-top: 5px; font-size: 0.9rem;">ขอบคุณที่ไว้วางใจเลือกซื้อสินค้ากับเรา</p>
+            
+            <div class="modal-info-box">
+                <div><strong>สินค้า:</strong> <span id="successProductName"></span></div>
+                <div><strong>ขนาดไซส์:</strong> EUR <span id="successProductSize"></span></div>
+                <div><strong>ราคาทั้งหมด:</strong> <span id="successProductPrice" style="color: var(--red-main); font-weight: bold;"></span></div>
+            </div>
+
+            <!-- เพิ่มปุ่มยกเลิกสินค้าคู่กับปุ่มตกลง -->
+            <div class="modal-btn-group">
+                <button class="btn-cancel-order" onclick="openCancelModal()">ยกเลิกสินค้า ✖</button>
+                <button class="btn-done" onclick="closeModal('successModal')">ตกลง / ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. ป๊อปอัปยืนยันการยกเลิกสินค้า (Confirm Cancel Modal) -->
+    <div id="cancelModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('cancelModal')">&times;</button>
+            <div class="modal-icon icon-warning">!</div>
+            <h2 style="margin: 0; color: var(--red-main);">ยืนยันการยกเลิกสินค้า?</h2>
+            <p style="color: #666; margin-top: 5px; font-size: 0.9rem;">คุณแน่ใจหรือไม่ว่าต้องการยกเลิกคำสั่งซื้อนี้?</p>
+            
+            <div class="modal-info-box">
+                <div><strong>รายการที่ยกเลิก:</strong> <span id="cancelProductName"></span></div>
+                <div><strong>ขนาดไซส์:</strong> EUR <span id="cancelProductSize"></span></div>
+            </div>
+
+            <div class="modal-btn-group">
+                <button class="btn-modal-close" onclick="closeModal('cancelModal')">ย้อนกลับ</button>
+                <button class="btn-cancel-order" onclick="processCancelOrder()">ยืนยันยกเลิก</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. ป๊อปอัปแจ้งยกเลิกสินค้าสำเร็จ (Cancel Success Modal) -->
+    <div id="cancelSuccessModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('cancelSuccessModal')">&times;</button>
+            <div class="modal-icon icon-info">ℹ</div>
+            <h2 style="margin: 0; color: var(--blue-info);">ยกเลิกสินค้าเรียบร้อยแล้ว</h2>
+            <p style="color: #666; margin-top: 10px; font-size: 0.95rem;">ระบบได้ทำการยกเลิกคำสั่งซื้อสินค้าของคุณเรียบร้อยแล้วครับ</p>
+            
+            <div style="margin-top: 1.5rem;">
+                <button class="btn-modal-close" onclick="closeModal('cancelSuccessModal')">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. ป๊อปอัปข้อมูลการจัดส่ง (Shipping Modal) -->
+    <div id="shippingModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('shippingModal')">&times;</button>
+            <div class="modal-icon icon-info">🚚</div>
+            <h2 style="margin: 0; color: var(--blue-info);">นโยบายการจัดส่งสินค้า</h2>
+            
+            <div class="modal-info-box">
+                <ul>
+                    <li><strong>จัดส่งฟรี:</strong> เมื่อมียอดสั่งซื้อตั้งแต่ 1,500 บาทขึ้นไป</li>
+                    <li><strong>ค่าจัดส่งปกติ:</strong> 50 บาททั่วประเทศ สำหรับยอดไม่ถึง 1,500 บาท</li>
+                    <li><strong>ระยะเวลาจัดส่ง:</strong> 1 - 3 วันทำการ (ขึ้นอยู่กับพื้นที่ปลายทาง)</li>
+                    <li><strong>การติดตามพัสดุ:</strong> แจ้งเลข Tracking Number ผ่าน SMS/Email หลังจัดส่ง</li>
+                </ul>
+            </div>
+
+            <button class="btn-modal-close" onclick="closeModal('shippingModal')">เข้าใจแล้ว</button>
+        </div>
+    </div>
+
+    <!-- 6. ป๊อปอัปนโยบายการคืนสินค้า (Returns Modal) -->
+    <div id="returnsModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('returnsModal')">&times;</button>
+            <div class="modal-icon icon-info">🔄</div>
+            <h2 style="margin: 0; color: var(--blue-info);">นโยบายการคืน/เปลี่ยนสินค้า</h2>
+            
+            <div class="modal-info-box">
+                <ul>
+                    <li><strong>ระยะเวลา:</strong> สามารถแจ้งเปลี่ยนไซส์หรือคืนสินค้าได้ภายใน 7 วัน</li>
+                    <li><strong>เงื่อนไขสินค้า:</strong> สินค้าต้องอยู่ในสภาพเดิม 100% ไม่ผ่านการใช้งาน และป้ายสินค้าอยู่ครบ</li>
+                    <li><strong>ขั้นตอน:</strong> ติดต่อแจ้งเปลี่ยนสินค้าผ่านทางแชทหรือฝ่ายบริการลูกค้า</li>
+                </ul>
+            </div>
+
+            <button class="btn-modal-close" onclick="closeModal('returnsModal')">เข้าใจแล้ว</button>
+        </div>
+    </div>
+
+    <!-- ส่วนท้ายเว็บไซต์ (Footer) -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>เกี่ยวกับ CAMELO</h4>
+                <p style="font-size: 0.85rem; line-height: 1.5;">ร้านจำหน่ายรองเท้ากีฬา สินค้าลิขสิทธิ์แท้ 100% พร้อมบริการจัดส่งด่วนทั่วประเทศ</p>
+            </div>
+            <div class="footer-section">
+                <h4>หมวดหมู่สินค้า</h4>
+                <ul>
+                    <li><a onclick="switchTab('cleats', 'btn-cleats')">รองเท้าสตั๊ด</a></li>
+                    <li><a onclick="switchTab('futsal', 'btn-futsal')">รองเท้าฟุตซอล</a></li>
+                    <li><a onclick="switchTab('running', 'btn-running')">รองเท้าวิ่ง</a></li>
+                    <li><a onclick="switchTab('tennis', 'btn-tennis')">รองเท้าเทนนิส</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>ช่วยเหลือ & บริการ</h4>
+                <ul>
+                    <li><a onclick="openShippingModal()">ข้อมูลการจัดส่ง</a></li>
+                    <li><a onclick="openReturnsModal()">นโยบายการคืนสินค้า</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 CAMELO THE SHOES. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Script ควบคุมระบบแท็บและป๊อปอัป Modal ต่างๆ -->
+    <script>
+        let selectedProduct = '';
+        let selectedPrice = '';
+        let selectedSize = '';
+
+        /* ระบบสลับแท็บหมวดหมู่ */
+        function switchTab(tabId, btnId) {
+            const targetContent = document.getElementById(tabId);
+            if (!targetContent) return;
+
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            targetContent.classList.add('active');
+
+            const activeBtn = document.getElementById(btnId);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+
+        /* ฟังก์ชันเปิด/ปิด Modal ทั่วไป */
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        /* ป๊อปอัปสั่งซื้อสินค้า */
+        function openOrderModal(name, price, imgSrc) {
+            selectedProduct = name;
+            selectedPrice = price;
+            selectedSize = '';
+
+            document.getElementById('modalProductName').innerText = name;
+            document.getElementById('modalProductPrice').innerText = price;
+            document.getElementById('modalProductImg').src = imgSrc;
+
+            const sizeBtns = document.querySelectorAll('.size-btn');
+            sizeBtns.forEach(btn => btn.classList.remove('selected'));
+
+            openModal('orderModal');
+        }
+
+        function selectSize(element) {
+            const sizeBtns = document.querySelectorAll('.size-btn');
+            sizeBtns.forEach(btn => btn.classList.remove('selected'));
+
+            element.classList.add('selected');
+            selectedSize = element.innerText;
+        }
+
+        function confirmOrder() {
+            if (!selectedSize) {
+                alert('กรุณาเลือกขนาดไซส์รองเท้าก่อนยืนยันสั่งซื้อครับ');
+                return;
+            }
+
+            closeModal('orderModal');
+
+            document.getElementById('successProductName').innerText = selectedProduct;
+            document.getElementById('successProductSize').innerText = selectedSize;
+            document.getElementById('successProductPrice').innerText = selectedPrice;
+
+            openModal('successModal');
+        }
+
+        /* ฟังก์ชันการยกเลิกสินค้า */
+        function openCancelModal() {
+            closeModal('successModal');
+            document.getElementById('cancelProductName').innerText = selectedProduct;
+            document.getElementById('cancelProductSize').innerText = selectedSize;
+            openModal('cancelModal');
+        }
+
+        function processCancelOrder() {
+            closeModal('cancelModal');
+            openModal('cancelSuccessModal');
+        }
+
+        /* ป๊อปอัปการจัดส่งและการคืนสินค้า */
+        function openShippingModal() {
+            openModal('shippingModal');
+        }
+
+        function openReturnsModal() {
+            openModal('returnsModal');
+        }
+    </script>
+
+</body>
+</html>
