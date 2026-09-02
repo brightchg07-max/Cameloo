@@ -1,0 +1,245 @@
+ <!-- 1. ป๊อปอัปเลือกขนาดไซส์รองเท้า (Order Modal) -->
+    <div id="orderModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('orderModal')">&times;</button>
+            <h3 style="margin-top: 0; color: var(--red-main);">เลือกขนาดและยืนยันรายการ</h3>
+            <img id="modalProductImg" class="modal-img" src="" alt="สินค้า">
+            <div id="modalProductName" style="font-weight: bold; font-size: 1.1rem;"></div>
+            <div id="modalProductPrice" style="color: var(--red-main); font-size: 1.2rem; margin-top: 5px; font-weight: bold;"></div>
+            
+            <div style="margin-top: 15px; font-weight: bold;">เลือกขนาดไซส์ (EUR):</div>
+            <div class="size-selector">
+                <button class="size-btn" onclick="selectSize(this)">39</button>
+                <button class="size-btn" onclick="selectSize(this)">40</button>
+                <button class="size-btn" onclick="selectSize(this)">41</button>
+                <button class="size-btn" onclick="selectSize(this)">42</button>
+                <button class="size-btn" onclick="selectSize(this)">43</button>
+                <button class="size-btn" onclick="selectSize(this)">44</button>
+            </div>
+            
+            <button class="btn-confirm" onclick="confirmOrder()">ยืนยันการสั่งซื้อ</button>
+        </div>
+    </div>
+
+    <!-- 2. ป๊อปอัปแจ้งการสั่งซื้อสำเร็จ (Success Modal) + ปุ่มยกเลิกสินค้า -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('successModal')">&times;</button>
+            <div class="modal-icon icon-success">✓</div>
+            <h2 style="margin: 0; color: var(--green-success);">การสั่งซื้อสำเร็จ!</h2>
+            <p style="color: #666; margin-top: 5px; font-size: 0.9rem;">ขอบคุณที่ไว้วางใจเลือกซื้อสินค้ากับเรา</p>
+            
+            <div class="modal-info-box">
+                <div><strong>สินค้า:</strong> <span id="successProductName"></span></div>
+                <div><strong>ขนาดไซส์:</strong> EUR <span id="successProductSize"></span></div>
+                <div><strong>ราคาทั้งหมด:</strong> <span id="successProductPrice" style="color: var(--red-main); font-weight: bold;"></span></div>
+            </div>
+
+            <!-- เพิ่มปุ่มยกเลิกสินค้าคู่กับปุ่มตกลง -->
+            <div class="modal-btn-group">
+                <button class="btn-cancel-order" onclick="openCancelModal()">ยกเลิกสินค้า ✖</button>
+                <button class="btn-done" onclick="closeModal('successModal')">ตกลง / ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. ป๊อปอัปยืนยันการยกเลิกสินค้า (Confirm Cancel Modal) -->
+    <div id="cancelModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('cancelModal')">&times;</button>
+            <div class="modal-icon icon-warning">!</div>
+            <h2 style="margin: 0; color: var(--red-main);">ยืนยันการยกเลิกสินค้า?</h2>
+            <p style="color: #666; margin-top: 5px; font-size: 0.9rem;">คุณแน่ใจหรือไม่ว่าต้องการยกเลิกคำสั่งซื้อนี้?</p>
+            
+            <div class="modal-info-box">
+                <div><strong>รายการที่ยกเลิก:</strong> <span id="cancelProductName"></span></div>
+                <div><strong>ขนาดไซส์:</strong> EUR <span id="cancelProductSize"></span></div>
+            </div>
+
+            <div class="modal-btn-group">
+                <button class="btn-modal-close" onclick="closeModal('cancelModal')">ย้อนกลับ</button>
+                <button class="btn-cancel-order" onclick="processCancelOrder()">ยืนยันยกเลิก</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. ป๊อปอัปแจ้งยกเลิกสินค้าสำเร็จ (Cancel Success Modal) -->
+    <div id="cancelSuccessModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('cancelSuccessModal')">&times;</button>
+            <div class="modal-icon icon-info">ℹ</div>
+            <h2 style="margin: 0; color: var(--blue-info);">ยกเลิกสินค้าเรียบร้อยแล้ว</h2>
+            <p style="color: #666; margin-top: 10px; font-size: 0.95rem;">ระบบได้ทำการยกเลิกคำสั่งซื้อสินค้าของคุณเรียบร้อยแล้วครับ</p>
+            
+            <div style="margin-top: 1.5rem;">
+                <button class="btn-modal-close" onclick="closeModal('cancelSuccessModal')">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. ป๊อปอัปข้อมูลการจัดส่ง (Shipping Modal) -->
+    <div id="shippingModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('shippingModal')">&times;</button>
+            <div class="modal-icon icon-info">🚚</div>
+            <h2 style="margin: 0; color: var(--blue-info);">นโยบายการจัดส่งสินค้า</h2>
+            
+            <div class="modal-info-box">
+                <ul>
+                    <li><strong>จัดส่งฟรี:</strong> เมื่อมียอดสั่งซื้อตั้งแต่ 1,500 บาทขึ้นไป</li>
+                    <li><strong>ค่าจัดส่งปกติ:</strong> 50 บาททั่วประเทศ สำหรับยอดไม่ถึง 1,500 บาท</li>
+                    <li><strong>ระยะเวลาจัดส่ง:</strong> 1 - 3 วันทำการ (ขึ้นอยู่กับพื้นที่ปลายทาง)</li>
+                    <li><strong>การติดตามพัสดุ:</strong> แจ้งเลข Tracking Number ผ่าน SMS/Email หลังจัดส่ง</li>
+                </ul>
+            </div>
+
+            <button class="btn-modal-close" onclick="closeModal('shippingModal')">เข้าใจแล้ว</button>
+        </div>
+    </div>
+
+    <!-- 6. ป๊อปอัปนโยบายการคืนสินค้า (Returns Modal) -->
+    <div id="returnsModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('returnsModal')">&times;</button>
+            <div class="modal-icon icon-info">🔄</div>
+            <h2 style="margin: 0; color: var(--blue-info);">นโยบายการคืน/เปลี่ยนสินค้า</h2>
+            
+            <div class="modal-info-box">
+                <ul>
+                    <li><strong>ระยะเวลา:</strong> สามารถแจ้งเปลี่ยนไซส์หรือคืนสินค้าได้ภายใน 7 วัน</li>
+                    <li><strong>เงื่อนไขสินค้า:</strong> สินค้าต้องอยู่ในสภาพเดิม 100% ไม่ผ่านการใช้งาน และป้ายสินค้าอยู่ครบ</li>
+                    <li><strong>ขั้นตอน:</strong> ติดต่อแจ้งเปลี่ยนสินค้าผ่านทางแชทหรือฝ่ายบริการลูกค้า</li>
+                </ul>
+            </div>
+
+            <button class="btn-modal-close" onclick="closeModal('returnsModal')">เข้าใจแล้ว</button>
+        </div>
+    </div>
+
+    <!-- ส่วนท้ายเว็บไซต์ (Footer) -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>เกี่ยวกับ CAMELO</h4>
+                <p style="font-size: 0.85rem; line-height: 1.5;">ร้านจำหน่ายรองเท้ากีฬา สินค้าลิขสิทธิ์แท้ 100% พร้อมบริการจัดส่งด่วนทั่วประเทศ</p>
+            </div>
+            <div class="footer-section">
+                <h4>หมวดหมู่สินค้า</h4>
+                <ul>
+                    <li><a onclick="switchTab('cleats', 'btn-cleats')">รองเท้าสตั๊ด</a></li>
+                    <li><a onclick="switchTab('futsal', 'btn-futsal')">รองเท้าฟุตซอล</a></li>
+                    <li><a onclick="switchTab('running', 'btn-running')">รองเท้าวิ่ง</a></li>
+                    <li><a onclick="switchTab('tennis', 'btn-tennis')">รองเท้าเทนนิส</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>ช่วยเหลือ & บริการ</h4>
+                <ul>
+                    <li><a onclick="openShippingModal()">ข้อมูลการจัดส่ง</a></li>
+                    <li><a onclick="openReturnsModal()">นโยบายการคืนสินค้า</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 CAMELO THE SHOES. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Script ควบคุมระบบแท็บและป๊อปอัป Modal ต่างๆ -->
+    <script>
+        let selectedProduct = '';
+        let selectedPrice = '';
+        let selectedSize = '';
+
+        /* ระบบสลับแท็บหมวดหมู่ */
+        function switchTab(tabId, btnId) {
+            const targetContent = document.getElementById(tabId);
+            if (!targetContent) return;
+
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            targetContent.classList.add('active');
+
+            const activeBtn = document.getElementById(btnId);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+
+        /* ฟังก์ชันเปิด/ปิด Modal ทั่วไป */
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        /* ป๊อปอัปสั่งซื้อสินค้า */
+        function openOrderModal(name, price, imgSrc) {
+            selectedProduct = name;
+            selectedPrice = price;
+            selectedSize = '';
+
+            document.getElementById('modalProductName').innerText = name;
+            document.getElementById('modalProductPrice').innerText = price;
+            document.getElementById('modalProductImg').src = imgSrc;
+
+            const sizeBtns = document.querySelectorAll('.size-btn');
+            sizeBtns.forEach(btn => btn.classList.remove('selected'));
+
+            openModal('orderModal');
+        }
+
+        function selectSize(element) {
+            const sizeBtns = document.querySelectorAll('.size-btn');
+            sizeBtns.forEach(btn => btn.classList.remove('selected'));
+
+            element.classList.add('selected');
+            selectedSize = element.innerText;
+        }
+
+        function confirmOrder() {
+            if (!selectedSize) {
+                alert('กรุณาเลือกขนาดไซส์รองเท้าก่อนยืนยันสั่งซื้อครับ');
+                return;
+            }
+
+            closeModal('orderModal');
+
+            document.getElementById('successProductName').innerText = selectedProduct;
+            document.getElementById('successProductSize').innerText = selectedSize;
+            document.getElementById('successProductPrice').innerText = selectedPrice;
+
+            openModal('successModal');
+        }
+
+        /* ฟังก์ชันการยกเลิกสินค้า */
+        function openCancelModal() {
+            closeModal('successModal');
+            document.getElementById('cancelProductName').innerText = selectedProduct;
+            document.getElementById('cancelProductSize').innerText = selectedSize;
+            openModal('cancelModal');
+        }
+
+        function processCancelOrder() {
+            closeModal('cancelModal');
+            openModal('cancelSuccessModal');
+        }
+
+        /* ป๊อปอัปการจัดส่งและการคืนสินค้า */
+        function openShippingModal() {
+            openModal('shippingModal');
+        }
+
+        function openReturnsModal() {
+            openModal('returnsModal');
+        }
+    </script>
+
+</body>
+</html>
